@@ -18,40 +18,56 @@
     const root = document.querySelector('#root');
 
     function App() {
-        const [minutes, setMinutes] = React.useState(0)
-        const [hours, setHours] = React.useState(0)
+        const [amout, setAmout] = React.useState(0)
+        const [flipped, setFlipped] = React.useState(false)
         function onChange(event) {
             const value = event.target.value
-            setMinutes(value)
+            // if (!flipped) {
+            //     return setAmout(value / 60)
+            // } else {
+            //     return setAmout(value * 60)
+            // }
+            return setAmout(value)
 
         }
-        function hoursChange(event) {
-            const value = event.target.value
-            setHours(value)
+        // function hoursChange(event) {
+        //     const value = event.target.value
+        //     return setHours(value)
+        // }
+        function reset() {
+            setAmout(0)
+        }
+        function flip() {
+            reset()
+            setFlipped((elem) => !elem)
         }
         return (<div>
             <h1>super Converter</h1>
-            <label htmlFor="minutes">minutes</label>
+            <label htmlFor="amout">amout</label>
             <input
-                value={minutes}
-                id="minutes"
+                value={flipped ? amout * 60 : amout}
+                id="amout"
                 type="number"
-                placeholder="Minutes"
+                placeholder="amout"
                 onChange={onChange}
+                disabled={flipped}
             />
             <br />
-            <h4>minutes => hours {minutes / 60}</h4>
             <label htmlFor="hours">hours</label>
             <input
-                value={hours}
+                value={flipped ? amout : Math.round(amout / 60)}
                 id="hours"
                 type="number"
                 placeholder="hours"
-                onChange={hoursChange}
+                disabled={!flipped}
+                onChange={onChange}
+
             />
             <br />
-            <h4>hours =>minutes {hours * 60}</h4>
-            <button>change</button>
+
+            <button onClick={reset}>reset</button>
+            <br />
+            <button onClick={flip}>flip</button>
         </div >)
     }
     ReactDOM.render(<App />, root)
