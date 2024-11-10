@@ -39,14 +39,14 @@
 
     Btn.propTypes = {
         //props의 type이 뭐고 어떤 모양인지를 설명 가능
-        text: PropTypes.string,
-        fontSize: PropTypes.number
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number.isRequired
     }
     function App() {  //App부모, Btn자식 
         return (
             <div>
                 <Btn text="Save Change" fontSize={18} />
-                <Btn text='Hi' fontSize={13} />
+                <Btn text='Hi' fontSize={14} />
             </div>
         )
     }
