@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    const root = document.querySelector('#root');
+
+    function App() {
+        const [minutes, setMinutes] = React.useState(0)
+        const [hours, setHours] = React.useState(0)
+        function onChange(event) {
+            const value = event.target.value
+            setMinutes(value)
+
+        }
+        function hoursChange(event) {
+            const value = event.target.value
+            setHours(value)
+        }
+        return (<div>
+            <h1>super Converter</h1>
+            <label htmlFor="minutes">minutes</label>
+            <input
+                value={minutes}
+                id="minutes"
+                type="number"
+                placeholder="Minutes"
+                onChange={onChange}
+            />
+            <br />
+            <h4>minutes => hours {minutes / 60}</h4>
+            <label htmlFor="hours">hours</label>
+            <input
+                value={hours}
+                id="hours"
+                type="number"
+                placeholder="hours"
+                onChange={hoursChange}
+            />
+            <br />
+            <h4>hours =>minutes {hours * 60}</h4>
+            <button>change</button>
+        </div >)
+    }
+    ReactDOM.render(<App />, root)
+
+
+</script>
+
+</html>
