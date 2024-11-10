@@ -15,127 +15,34 @@
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-    const root = document.querySelector('#root');
-    function MinutesToHours() {
-        const [amout, setAmout] = React.useState(0)
-        const [flipped, setFlipped] = React.useState(false)
-        function onChange(event) {
-            const value = event.target.value
-            // if (!flipped) {
-            //     return setAmout(value / 60)
-            // } else {
-            //     return setAmout(value * 60)
-            // }
-            return setAmout(value)
-
-        }
-        // function hoursChange(event) {
-        //     const value = event.target.value
-        //     return setHours(value)
-        // }
-        function reset() {
-            setAmout(0)
-        }
-        function flip() {
-            reset()
-            setFlipped((elem) => !elem)
-        }
-        return (<div>
-            <h3>Minutes Convert</h3>
-            <label htmlFor="amout">amout</label>
-            <input
-                value={flipped ? amout * 60 : amout}
-                id="amout"
-                type="number"
-                placeholder="amout"
-                onChange={onChange}
-                disabled={flipped}
-            />
-            <br />
-            <label htmlFor="hours">hours</label>
-            <input
-                value={flipped ? amout : Math.round(amout / 60)}
-                id="hours"
-                type="number"
-                placeholder="hours"
-                disabled={!flipped}
-                onChange={onChange}
-
-            />
-            <br />
-
-            <button onClick={reset}>reset</button>
-            <br />
-            <button onClick={flip}>flip</button>
-        </div >
-        )
-    }
-
-    function KmToMilse() {
-        const [km, setKM] = React.useState(0);
-        const [toggle, setToggle] = React.useState(false)
-        function reset() {
-            setKM(0)
-        }
-        function flipFn() {
-            reset()
-            setToggle((elem) => !elem)
-        }
-        function onChange(e) {
-            setKM(e.target.value)
-        }
-
+    function Btn({ text, changeValue }) {
 
         return (
-            <div>
-                <h3>KmToMilse</h3>
-                <label htmlFor="km">km</label>
-                <input
-                    onChange={onChange}
-                    id="km"
-                    type="number"
-                    disabled={toggle}
-                    value={!toggle ? km : km * 1.609}
-                />
-                <br />
-                <label htmlFor="miles">miles</label>
-                <input
-                    onChange={onChange}
-                    id="miles"
-                    type="number"
-                    disabled={!toggle}
-                    value={!toggle ? km / 1.609 : km} //miles=> km로 
-                />
-                <br />
-                <button onClick={reset}>reset</button>
-                <br />
-                <button onClick={flipFn}>flip</button>
-            </div>
-        )
+            <button
+                onClick={changeValue}
+                style=
+                {{
+                    backgroundColor: 'tomato',
+                    color: 'white',
+                    padding: '10px 20px',
+                    border: '0',
+                    borderRadius: 10
+                }}
+            >{text}</button>)
     }
+    function App() {  //App부모, Btn자식 
 
-    function App() {
-        const [index, setIndex] = React.useState("0")
-        function choice(event) {
-            // if (event.target.value === 1) {
-            //     ReactDOM.render(<KmToMilse />, root)
-            // } else if (event.target.value === 0) {
-            //     ReactDOM.render(<MinutesToHours />, root)
-            // }
-            setIndex(event.target.value)
+        const [value, setValue] = React.useState('save Change')
+        function changeValue() {
+            setValue('revert Change')
         }
         return (
             <div>
-                <h1>Super Converter</h1>
-                <select value={index} onChange={choice}>
-                    <option value="0">Minutes & Hours</option>
-                    <option value="1">Km & Miles</option>
-                </select>
-                {index === "0" ? <MinutesToHours /> : <KmToMilse />}
+                <Btn text={value} changeValue={changeValue} />
+                <Btn text='Continue' />
             </div>
         )
     }
-
     ReactDOM.render(<App />, root)
 
 
