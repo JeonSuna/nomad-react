@@ -1,29 +1,33 @@
-import React, { useState, useEffect } from "react";
-
-function Hello() {
-  function effectFun() {
-    console.log('created :)')
-    return destroyedFun
-  }
-  function destroyedFun() {
-    console.log('destroyed :(')
-  }
-  useEffect(effectFun, [])
-  return (<h1>
-    Hello
-  </h1>)
-}
+import React, { useState } from 'react';
 
 function App() {
-  const [showing, setShowing] = useState(false)
-  function onClick() {
-    return setShowing((prev) => !prev)
+  const [todo, setTodo] = useState('');
+  const [toDos, setToDos] = useState([]); //원래는 push를 했지만..이렇게state를 이용해서
+  function onChange(event) {
+    setTodo(event.target.value);
   }
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (todo === '') {
+      return;
+    }
+    setTodo(''); //input 값 지우기
+    setToDos((currentArray) => [todo, ...currentArray]);
+  };
+  console.log(toDos);
   return (
     <div>
-      {showing ? <Hello /> : null}
-      <button onClick={onClick}>{showing ? 'hide' : 'Show'}</button>
+      <h1>My To Dos {toDos.length}</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          value={todo}
+          type="text"
+          placeholder="write your to do"
+        />
+        <button>Add To Do</button>
+      </form>
     </div>
-  )
+  );
 }
 export default App;
