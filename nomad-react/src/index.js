@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import CoinTracker from './CoinTracker.js';
+import Movie from './Movie.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<CoinTracker />);
+root.render(<Movie />);
